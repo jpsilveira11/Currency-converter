@@ -27,12 +27,17 @@ def get_currencies():
   return currencies
 
 def convert(currency_1,currency_2,amount):
+  if currency_1==currency_2:
+    return "Converter o valor de uma moeda para ela mesma não faz sentido."
   url=f"{urls['converter']}{currency_1}-to-{currency_2}-rate?amount={amount}"
   #print(url)
-  r=requests.get(url)
-  source_code=r.text
-  soup=bs(source_code,'html.parser')
-  conversion=soup.find(class_="text-success").string
+  try:
+    r=requests.get(url)
+    source_code=r.text
+    soup=bs(source_code,'html.parser')
+    conversion=soup.find(class_="text-success").string
+  except:
+    return "Uma das moedas selecionadas (ou ambas) está(ão) indisponível(eis)."
   #print(conversion)
   converted=float(amount)*float(conversion)
   converted=format_currency(converted,currency_2.upper())
