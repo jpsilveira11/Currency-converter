@@ -42,5 +42,5 @@ def convert(currency_1,currency_2,amount):
   converted=float(amount)*float(conversion)
   converted=format_currency(converted,currency_2.upper())
   amount=format_currency(amount,currency_1.upper())
-  answer=(f"{amount} equivale a {converted}")
+  answer = (f"{amount} equivale a {converted}\nDisponível em:\n{url}")
   return answer
